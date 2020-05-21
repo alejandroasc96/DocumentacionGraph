@@ -21,8 +21,10 @@ https://azure.microsoft.com/es-es/
 ### 4.- Rellenamos los campos
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/3.JPG" width="500">
 ***Explicación***
-*Nombre* Es el nombre con el que vamos a identificar a nuestra aplicación dentro de Azure.
-*Tipo de cuenta compatible*  declaramos que cuentas de microsoft pueden hacer uso de esta api; casos:
+
+**Nombre** Es el nombre con el que vamos a identificar a nuestra aplicación dentro de Azure.
+**Tipo de cuenta compatible**  declaramos que cuentas de microsoft pueden hacer uso de esta api; casos:
+
 - Solo usuarios dentro de nuestra organización (en este caso Fundación Universitaria)
 - Todos aquellos usuarios con una cuenta profesional o educativa de Microsoft 
 - Todos aquellos usuarios con cuenta de microsoft.
