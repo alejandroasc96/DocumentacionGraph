@@ -20,7 +20,7 @@ https://azure.microsoft.com/es-es/
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/2.png" width="500">
 ### 4.- Rellenamos los campos
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/3.JPG" width="500">
-***Explicación***
+__Explicación__
 
 **Nombre** Es el nombre con el que vamos a identificar a nuestra aplicación dentro de Azure.
 
