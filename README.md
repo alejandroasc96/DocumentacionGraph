@@ -233,10 +233,10 @@ Si todo ha salido bien deberíamos recibir una respuesta con la siguiente estruc
 > https://graph.microsoft.com/v1.0/me/calendar/events?orderby=start/dateTime&$top=100
 
 <h5>UPDATE</h5>
-> "https://graph.microsoft.com/v1.0/me/events/" . $_REQUEST['idUpdateEvent']
+> "https://graph.microsoft.com/v1.0/me/events/[idUpdateEvent]"
 
 <h5>DELETE</h5>
-> "https://graph.microsoft.com/v1.0/me/events/" . $_REQUEST['elimarEvento']
+> "https://graph.microsoft.com/v1.0/me/events/[elimarEvento]"
 
 ### Nuestro código
 
