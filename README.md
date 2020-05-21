@@ -173,7 +173,7 @@ Aunque el token de acceso es opaco para su aplicación, la respuesta contiene un
 
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/handleTokenResponse.JPG" width="100%">
 
-6º Refresh_token
+**6º** Refresh_token
 Es importante aclarar que a la hora de conectarnos con la api de microsoft graph podemos hacerlo logueandonos para que nos dé un nuevo token cada hora ( es el tiempo de vida del access_token) o podemos guardar el refresh_token en nuestra base de datos para solicitar un nuevo access_token sin tener que volver a iniciar sesión durante 90 días(vida útil del refresh token)
 
 Si al llamar a nuestro método **handlePageReguest()**. somo capaces de obtener un refresh_token de nuestra base de datos podemos crear una petición con la siguiente estructura:
@@ -227,7 +227,7 @@ Si todo ha salido bien deberíamos recibir una respuesta con la siguiente estruc
 ### URL 
 
 <h5>CREATE</h5>
-> https://graph.microsoft.com/v1.0/me/events
+ "https://graph.microsoft.com/v1.0/me/events" 
 
 <h5>READ</h5>
 > https://graph.microsoft.com/v1.0/me/calendar/events?orderby=start/dateTime&$top=100
