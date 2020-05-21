@@ -8,6 +8,13 @@ En este documento se detallan los pasos a seguir para crear y consultar una api 
 Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azure 
 
 ## Registrando la aplicación en Azure
+### 1.- Entramos a plataforma de azure 
 https://azure.microsoft.com/es-es/
 
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="500">
+
+### 2.- Azure Directory
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/1.png" width="500">
+
+### 3.- Registro de aplicaciones  y le damos a crear nueva aplicación
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/2.png" width="500">
