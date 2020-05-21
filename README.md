@@ -117,10 +117,10 @@ PHP
 
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/10.png" width="100%">
 
-1º 
+**1º** 
 En este punto en el caso de poseer access_token simplemente no habrá que hacer nada.
 
-2º 
+**2º** 
 En el caso de que no tengamos el access_token pero hayamos recibido respuesta por parte de microsoft azure guardaremos dicha respuesta en una variable (en este caso verifier)
 
 ```
@@ -130,7 +130,7 @@ code=M0ab92efe-b6fd-df08-87dc-2c6500a7f84d
 &state=12345
 ```
 
-3º Petición del token
+**3º Petición del token**
 Con el código facilitado deberemos realizar la petición del token y para ello debemos crear la siguiente estructura
 
 // Line breaks for legibility only
