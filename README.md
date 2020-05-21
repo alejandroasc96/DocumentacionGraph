@@ -23,6 +23,7 @@ https://azure.microsoft.com/es-es/
 ***Explicación***
 
 **Nombre** Es el nombre con el que vamos a identificar a nuestra aplicación dentro de Azure.
+
 **Tipo de cuenta compatible**  declaramos que cuentas de microsoft pueden hacer uso de esta api; casos:
 
 - Solo usuarios dentro de nuestra organización (en este caso Fundación Universitaria)
