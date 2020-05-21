@@ -11,7 +11,7 @@ Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azu
 ### 1.- Entramos a plataforma de azure 
 https://azure.microsoft.com/es-es/
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="700">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="100%">
 
 ### 2.- Azure Directory
 <img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/1.png" width="700">
