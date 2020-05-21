@@ -10,4 +10,4 @@ Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azu
 ## Registrando la aplicación en Azure
 https://azure.microsoft.com/es-es/
 
-<img src="https://raw.github.com/alejandroasc96/DocumentacionGraph/master/MicrosoftGraph/0.png" width="500">
+<img src="https://raw.github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="500">
