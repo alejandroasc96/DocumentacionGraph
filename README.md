@@ -167,6 +167,9 @@ Aunque el token de acceso es opaco para su aplicación, la respuesta contiene un
     "refresh_token": "AwABAAAAvPM1KaPlrEqdFSBzjqfTGAMxZGUTdM0t4B4..."
 }
 ```
+**4º** Por último ya solo nos quedaría tratar la respuesta que hemos optenido y crear las cookies con las características que queramos así como guardar el *refresh_token* recibido para futuras actualizaciones del *access_token*.
+
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/handleTokenResponse.JPG" width="100%">
 
 6º Refresh_token
 Es importante aclarar que a la hora de conectarnos con la api de microsoft graph podemos hacerlo logueandonos para que nos dé un nuevo token cada hora ( es el tiempo de vida del access_token) o podemos guardar el refresh_token en nuestra base de datos para solicitar un nuevo access_token sin tener que volver a iniciar sesión durante 90 días(vida útil del refresh token)
