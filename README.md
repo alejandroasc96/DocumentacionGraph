@@ -11,17 +11,17 @@ Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azu
 ### 1.- Entramos a plataforma de azure 
 https://azure.microsoft.com/es-es/
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/0.png" width="700">
 
 ### 2.- Azure Directory
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/1.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/1.png" width="700">
 
 ### 3.- Registro de aplicaciones  y le damos a crear nueva aplicación
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/2.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/2.png" width="700">
 
 ### 4.- Rellenamos los campos
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/3.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/3.JPG" width="700">
 
 ***Explicación***
 
@@ -37,7 +37,7 @@ https://azure.microsoft.com/es-es/
 
 ### 5.- Autenticación configurando parámetros
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/4.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/4.png" width="700">
 
 ***Explicación***
 
@@ -51,18 +51,18 @@ https://azure.microsoft.com/es-es/
 En este apartado vamos a configurar qué acciones se van a poder realizar con la aplicación. Para nuestro caso habilitaremos todos los permisos de del calendario y uno llamado 
 offline_access. 
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/5.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/5.png" width="700">
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/6.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/6.JPG" width="700">
 
 Estos permisos una vez solicitados deberán ser confirmados por un administrador, obteniendo una vista parecida a la siguiente 
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/7.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/7.JPG" width="700">
 
 ## Login desde la aplicación web
 Datos que vamos a necesitar
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/8.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/8.png" width="700">
 
 Para este apartado Microsoft nos ofrece 3 alternativas según las necesidades que tengamos.
 
@@ -80,7 +80,7 @@ El primer paso sería redigir al usuario a la ruta https://login.microsoftonline
 
 ### 1.- Función que crea la URL
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/9.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/9.png" width="700">
 
 ***Explicación:***
 
@@ -107,7 +107,7 @@ client_id=6731de76-14a6-49ae-97bc-6eba6914391e
 
 JS
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/authHandlerJs.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/authHandlerJs.JPG" width="700">
 
 **3.-Tratando la respuesta**
 
@@ -115,7 +115,7 @@ Es importante entender que una vez que nos hayamos identificado como un usuario 
 
 PHP
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/10.png" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/10.png" width="700">
 
 1º 
 En este punto en el caso de poseer access_token simplemente no habrá que hacer nada.
@@ -149,11 +149,11 @@ client_id=6731de76-14a6-49ae-97bc-6eba6914391e
 
 En nuestro código será lo siguiente
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/10.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/10.JPG" width="700">
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/11.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/11.JPG" width="700">
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/sendRequestJs.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/sendRequestJs.JPG" width="700">
 
 **Respuesta al token**
 Aunque el token de acceso es opaco para su aplicación, la respuesta contiene una lista de los permisos para los que el token de acceso es bueno en el scopeparámetro.
@@ -190,18 +190,18 @@ client_id=6731de76-14a6-49ae-97bc-6eba6914391e
 
 Para crear la petición en nuestro código el flujo sería el siguiente
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/refreshToken.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/refreshToken.JPG" width="700">
 
 1 Primero cargamos nuestro refresh_token que previamente hemos guardado en nuestra base de datos.
 2. Creamos la estructura del post 
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/requestAccessTokenByRefreshToken.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/requestAccessTokenByRefreshToken.JPG" width="700">
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/requestAccessToken.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/requestAccessToken.JPG" width="700">
 
 Y enviamos la petición 
 
-<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/sendRequestJs.JPG" width="500">
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/sendRequestJs.JPG" width="700">
 
 Si todo ha salido bien deberíamos recibir una respuesta con la siguiente estructura:
 
