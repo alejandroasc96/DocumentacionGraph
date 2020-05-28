@@ -4,8 +4,10 @@ En este documento se especifica los pasos que se han seguido para habilitar el c
 ## Descripción
 En este documento se detallan los pasos a seguir para crear y consultar una api de Microsoft Azure. Para este ejemplo se creará una una aplicación que genera eventos directamente en el calendario de Outlook. Contaremos con una aplicación web donde en primera instancia el usuario deberá loguearse mediante el login de Microsoft ( con seguridad en dos pasos) y luego podrá hacer un CRUD entero de los eventos.
 
+En caso de necesitar profundizar en alguno de los temas de los que se hablan a continuación puede dirigirse al siguiente  repositorio [https://github.com/microsoftgraph/microsoft-graph-docs/blob/master/concepts/auth-v2-user.md](https://github.com/microsoftgraph/microsoft-graph-docs/blob/master/concepts/auth-v2-user.md)
+
 ## Requisitos
-Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azure 
+Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azure, tener instalado php en el ordenador y poseer un 
 
 ## Registrando la aplicación en Azure
 ### 1.- Entramos a plataforma de azure 
@@ -167,8 +169,11 @@ Aunque el token de acceso es opaco para su aplicación, la respuesta contiene un
     "refresh_token": "AwABAAAAvPM1KaPlrEqdFSBzjqfTGAMxZGUTdM0t4B4..."
 }
 ```
+**4º** Por último ya solo nos quedaría tratar la respuesta que hemos optenido y crear las cookies con las características que queramos así como guardar el *refresh_token* recibido para futuras actualizaciones del *access_token*.
 
-6º Refresh_token
+<img src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/handleTokenResponse.JPG" width="100%">
+
+**6º** Refresh_token
 Es importante aclarar que a la hora de conectarnos con la api de microsoft graph podemos hacerlo logueandonos para que nos dé un nuevo token cada hora ( es el tiempo de vida del access_token) o podemos guardar el refresh_token en nuestra base de datos para solicitar un nuevo access_token sin tener que volver a iniciar sesión durante 90 días(vida útil del refresh token)
 
 Si al llamar a nuestro método **handlePageReguest()**. somo capaces de obtener un refresh_token de nuestra base de datos podemos crear una petición con la siguiente estructura:
@@ -216,3 +221,247 @@ Si todo ha salido bien deberíamos recibir una respuesta con la siguiente estruc
     "refresh_token": "AwABAAAAvPM1KaPlrEqdFSBzjqfTGAMxZGUTdM0t4B4...",
 }
 ```
+
+## Realizando CRUD 
+
+### URL 
+
+<h5>CREATE</h5>
+ "https://graph.microsoft.com/v1.0/me/events" 
+
+<h5>READ</h5>
+> https://graph.microsoft.com/v1.0/me/calendar/events?orderby=start/dateTime&$top=100
+
+<h5>UPDATE</h5>
+> "https://graph.microsoft.com/v1.0/me/events/[idUpdateEvent]"
+
+<h5>DELETE</h5>
+> "https://graph.microsoft.com/v1.0/me/events/[elimarEvento]"
+
+### Nuestro código
+
+<h5>CREATE</h5>
+
+``` php
+if ($_REQUEST['creandoLargo']) {
+  $subjectCrear = $_REQUEST['EventName'];
+  $bodyCrear = (!empty($_REQUEST['modalBodyEvent'])) ? $_REQUEST['modalBodyEvent'] : '';
+  if ($_REQUEST['allDay']) {
+    $isAllDay = 'true';
+    $b = $_REQUEST['startDate'];
+    $startDateFormat = $b . 'T00:00:00';
+    $bb = $_REQUEST['endDate'];
+    $endDateFormat = $bb . 'T00:00:00';
+  } else {
+    $isAllDay = 'false';
+    if (!empty($_REQUEST['startHour'])) {
+      $fechaFormat =  $_REQUEST['startDate'];
+      $startHourCrear = $_REQUEST['startHour'];
+      $startDateFormat = $fechaFormat . 'T' . $startHourCrear;
+    }
+    if (!empty($_REQUEST['endHour'])) {
+      $fechaFormat =  $_REQUEST['endDate'];
+      $endtHourCrear = $_REQUEST['endHour'];
+      $endDateFormat = $fechaFormat . 'T' . $endtHourCrear;
+    }
+  }
+
+
+
+  $cookieValues = parseQueryString(@$_COOKIE['graph_auth']);
+  //Since cookies are user-supplied content, it must be encoded to avoid header injection
+  $encodedAccessToken = rawurlencode(@$cookieValues['access_token']);
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://graph.microsoft.com/v1.0/me/events",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_POSTFIELDS => "{
+            'Subject': '$subjectCrear',
+            'Body': {
+                'ContentType': 'HTML',
+                'Content': '$bodyCrear'
+            },
+            'isAllDay': '$isAllDay',
+            'Start': {
+                'DateTime': '$startDateFormat',
+                'TimeZone': 'GMT Standard Time'
+            },
+            'End': {
+                'DateTime': '$endDateFormat',
+                'TimeZone': 'GMT Standard Time'
+            }
+            }",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: Bearer 
+        " . $encodedAccessToken,
+      "Content-Type: application/json",
+    ),
+  ));
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl);
+
+  if ($err) {
+    echo "cURL Error #:" . $err;
+  } else {
+    $responseArray = json_decode($response, true);
+
+    if ($_REQUEST['idMessage']) {
+
+      saveMessageParameters(
+        utf8_decode($_REQUEST['subjectMessage']),
+        utf8_decode($_REQUEST['bodyPreviewMessage']),
+        $_REQUEST['webLinkMessage'],
+        $_REQUEST['idMessage'],
+        utf8_decode($_REQUEST['senderMessage']),
+        $responseArray['id']
+      );
+    }
+    header('Location: https://scripts.fulp.es/microsoft/onenoteapisamples/index.php');
+  }
+}
+```
+<h5>READ</h5>
+
+``` php
+function readEvents($encodedAccessToken)
+{
+  global $eventos;
+  var_dump($encodedAccessToken);
+  $ch = curl_init('https://graph.microsoft.com/v1.0/me/calendar/events?orderby=start/dateTime&$top=100');
+  curl_setopt($ch, CURLOPT_HEADER, 1);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer " . $encodedAccessToken));
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $response = curl_exec($ch);
+  $err = curl_error($ch);
+
+  curl_close($ch);
+
+  if ($err) {
+    echo "cURL Error #:" . $err;
+  } else {
+    $view = explode('value', $response);
+    $view = $view[1];
+    $view = '{"value' . $view;
+
+    $eventos = json_decode($view, true);
+    return $eventos;
+  }
+}
+```
+
+<h5>UPDATE</h5>
+
+``` php
+// Update Event 
+if ($_REQUEST['idUpdateEvent']) {
+  $updateSubject = $_REQUEST['UpdateEventName'];
+  $UpdateBody = (!empty($_REQUEST['updateModalBodyEvent'])) ? $_REQUEST['updateModalBodyEvent'] : '';
+  if ($_REQUEST['updateAllDay']) {
+    $isAllDay = 'true';
+    $b = (!empty($_REQUEST['updateStartDate'])) ? $_REQUEST['updateStartDate'] : '';
+    $startDateFormat = $b . 'T00:00:00';
+    $bb = (!empty($_REQUEST['updateEndDate'])) ? $_REQUEST['updateEndDate'] : '';
+    $endDateFormat = $bb . 'T00:00:00';
+  } else {
+    $isAllDay = 'false';
+    if (!empty($_REQUEST['updateStartHour'])) {
+      $fechaFormat =  (!empty($_REQUEST['updateStartDate'])) ? $_REQUEST['updateStartDate'] : '';
+      $startHourCrear = (!empty($_REQUEST['updateStartHour'])) ? $_REQUEST['updateStartHour'] : '';
+      $startDateFormat = $fechaFormat . 'T' . $startHourCrear;
+    }
+    if (!empty($_REQUEST['updateEndHour'])) {
+      $fechaFormat =  (!empty($_REQUEST['updateEndDate'])) ? $_REQUEST['updateEndDate'] : '';
+      $endtHourCrear = (!empty($_REQUEST['updateEndHour'])) ? $_REQUEST['updateEndHour'] : '';
+      $endDateFormat = $fechaFormat . 'T' . $endtHourCrear;
+    }
+  }
+  $cookieValues = parseQueryString(@$_COOKIE['graph_auth']);
+  //Since cookies are user-supplied content, it must be encoded to avoid header injection
+  $encodedAccessToken = rawurlencode(@$cookieValues['access_token']);
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://graph.microsoft.com/v1.0/me/events/" . $_REQUEST['idUpdateEvent'],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "PATCH",
+    CURLOPT_POSTFIELDS => "{
+      'Subject': '$updateSubject',
+      'Body': {
+          'ContentType': 'HTML',
+          'Content': '$UpdateBody'
+      },
+      'isAllDay': '$isAllDay',
+      'Start': {
+          'DateTime': '$startDateFormat',
+          'TimeZone': 'GMT Standard Time'
+      },
+      'End': {
+          'DateTime': '$endDateFormat',
+          'TimeZone': 'GMT Standard Time'
+      }
+      }",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: Bearer 
+            " . $encodedAccessToken,
+      "Content-Type: application/json",
+    ),
+  ));
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl);
+
+  if ($err) {
+    echo "cURL Error #:" . $err;
+  } else {
+    var_dump($response);
+    header('Location: https://scripts.fulp.es/microsoft/onenoteapisamples/index.php');
+  }
+}
+```
+
+<h5>DELETE</h5>
+
+``` php
+// Eliminar Evento 
+if ($_REQUEST['elimarEvento']) {
+  $cookieValues = parseQueryString(@$_COOKIE['graph_auth']);
+  //Since cookies are user-supplied content, it must be encoded to avoid header injection
+  $encodedAccessToken = rawurlencode(@$cookieValues['access_token']);
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://graph.microsoft.com/v1.0/me/events/" . $_REQUEST['elimarEvento'],
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "DELETE",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: Bearer 
+                " . $encodedAccessToken,
+      "Content-Type: application/json",
+    ),
+  ));
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl);
+
+  if ($err) {
+    echo "cURL Error #:" . $err;
+  } else {
+    var_dump($response);
+    header('Location: https://scripts.fulp.es/microsoft/onenoteapisamples/index.php');
+  }
+}
+```
+
+
