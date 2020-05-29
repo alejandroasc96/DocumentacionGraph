@@ -7,7 +7,18 @@ En este documento se detallan los pasos a seguir para crear y consultar una api 
 En caso de necesitar profundizar en alguno de los temas de los que se hablan a continuación puede dirigirse al siguiente  repositorio [https://github.com/microsoftgraph/microsoft-graph-docs/blob/master/concepts/auth-v2-user.md](https://github.com/microsoftgraph/microsoft-graph-docs/blob/master/concepts/auth-v2-user.md)
 
 ## Requisitos
-Para llevar acabo este ejemplo se deberá contar con una cuenta de microsoft Azure, tener instalado php en el ordenador y poseer un 
+
+- Tener cuenta educativa o profesional de Microsoft Azure.
+
+- Poseer un dominio web donde recoger las respuestas de la Api.
+
+- Tener php instalado.
+
+## <h2 style="text-align:center">Índice</h2>
+1. [Registrando la aplicación en Microsoft Azure](#id1)
+2. [Llamadas a la API desde Postman](#id2)
+3. [Flujo de código en la aplicación](#id2)
+
 
 
 
