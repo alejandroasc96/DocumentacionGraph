@@ -10,13 +10,11 @@ Para poder utilizar dichas pruebas vamos a tener que modificar ciertos valores.
 
 **2.** Haga clic en **Archivo | Importar ...**
 
-
-<img style="text-align:center" src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/0_pulsarImport.png?raw=true" width="100%">
+![Image of Postman](https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/0_pulsarImport.png?raw=true)
 
 **3.** Seleccione **Importar desde enlace** .
 
-
-<img style="text-align:center" src="https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/1_importLink.PNG?raw=true" width="100%">
+![Image of Postman](https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/1_importLink.PNG?raw=true)
 
 
 **4.** Pegue las siguientes dos URL y haga clic en Importar después de cada una.
