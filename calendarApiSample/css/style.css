@@ -1,0 +1,25 @@
+body {
+padding: 50px;
+font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+color: #00B7FF;
+}
+
+button {
+padding: 10px 20px;
+margin-bottom: 10px;
+}
+
+.truncate 
+{
+    max-width: 35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#bodyModalMail{
+    white-space: pre-wrap;
+}
