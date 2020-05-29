@@ -1,0 +1,623 @@
+{
+	"info": {
+		"_postman_id": "6cfa5984-b5fc-4985-97e5-1a85d23c32be",
+		"name": "MicrosoftGraph",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CRUD Events",
+			"item": [
+				{
+					"name": "Create Event",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5550c805-f07e-4274-8fd7-d6a8b7378043",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4672b373-6a51-485a-8ed3-77fafc5d8594",
+								"exec": [
+									"var json = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"EventID\", json.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{UserAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"subject\": \"Nuevo Evento\",\r\n  \"body\": {\r\n    \"contentType\": \"HTML\",\r\n    \"content\": \"Does mid month work for you?\"\r\n  },\r\n  \"start\": {\r\n      \"dateTime\": \"2020-03-15T12:00:00\",\r\n      \"timeZone\": \"Pacific Standard Time\"\r\n  },\r\n  \"end\": {\r\n      \"dateTime\": \"2020-03-15T14:00:00\",\r\n      \"timeZone\": \"Pacific Standard Time\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/events",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event by Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{UserAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/events/{{EventID}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"events",
+								"{{EventID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Events",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IlZUQnNZQjJYWGRULVNhbEdUMVJTUDFkX2k4MVNwOWM3dWdOQnpmdEhhTlUiLCJhbGciOiJSUzI1NiIsIng1dCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSIsImtpZCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lNDNlZDZiNy01MTcxLTQ3OWYtOWFmYS1jNTBkNTE2Y2Y5ZWYvIiwiaWF0IjoxNTkwNTg0MDgyLCJuYmYiOjE1OTA1ODQwODIsImV4cCI6MTU5MDU4Nzk4MiwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhQQUFBQWdQdzl2VHorTnE4ZGZZTW5YR0Y1clJGTWFJbHVucjZpbWR4U29YNkRWWmN0NFZJdXlaUFFQcUtRT3BwQzhnd0NWK1Y4Ni9ZSlZxdWNpSFJraTVJUWR3PT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6InRlc3RBcHAiLCJhcHBpZCI6IjJhMzQyYmVlLWJmZDItNDFkNy05NmU4LTQyODc4OWRlZGM1MiIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiU2FudGFuYSBDYXJyZcOxbyIsImdpdmVuX25hbWUiOiJBbGVqYW5kcm8iLCJpcGFkZHIiOiI4MS40Ny4xMzcuNzEiLCJuYW1lIjoiQWxlamFuZHJvIFNhbnRhbmEgQ2FycmXDsW8iLCJvaWQiOiJiYWI5MTNkNi0xMmYyLTQ1MGUtODM4ZC1jMTI5MmZhZjcwMGYiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzIwMDA5MkM1OTQzNSIsInNjcCI6IkNhbGVuZGFycy5SZWFkIENhbGVuZGFycy5SZWFkLlNoYXJlZCBDYWxlbmRhcnMuUmVhZFdyaXRlIENhbGVuZGFycy5SZWFkV3JpdGUuU2hhcmVkIE1haWwuUmVhZC5TaGFyZWQgTWFpbC5SZWFkV3JpdGUgTWFpbC5SZWFkV3JpdGUuU2hhcmVkIE5vdGVzLkNyZWF0ZSBOb3Rlcy5SZWFkIE5vdGVzLlJlYWQuQWxsIE5vdGVzLlJlYWRXcml0ZSBOb3Rlcy5SZWFkV3JpdGUuQWxsIFRhc2tzLlJlYWQgVGFza3MuUmVhZC5TaGFyZWQgVGFza3MuUmVhZFdyaXRlIFRhc2tzLlJlYWRXcml0ZS5TaGFyZWQgVXNlci5SZWFkIHByb2ZpbGUgb3BlbmlkIGVtYWlsIiwic3ViIjoiNWtKcnJicnphTVF2b212WlphcXNVSG85QlZyT0pyYlV5Ykxmam5ObGowZyIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImU0M2VkNmI3LTUxNzEtNDc5Zi05YWZhLWM1MGQ1MTZjZjllZiIsInVuaXF1ZV9uYW1lIjoiYXNhbnRhbmFAZnVscC5lcyIsInVwbiI6ImFzYW50YW5hQGZ1bHAuZXMiLCJ1dGkiOiJINHlzTzlCbjEwbXpEakd6RnlsaEFRIiwidmVyIjoiMS4wIiwieG1zX3N0Ijp7InN1YiI6ImNMZDlJYThFZEo0WXBsWW9aOGRZdFhFTEthVnlFbXFoQk5meU9ad0M0QUUifSwieG1zX3RjZHQiOjEzNTM5NTE2ODd9.sovJ404C056buHAESWyl3fAOPhKovNrWadmuAwYCGsQW20PfHBpWNPdDCCbQJaY2dd6Pv2qacQYkMyKubKGDvRBYrcqQ41mCIntj63iOK0phvvm9x0YBkoOn6JP7CJNWNZiyWLs8CXNvaZWGCrxT_PlrjxYKwcw4-OGBzkIbmeV2GSEQL5KawugTb_y74CNcyZ6LamdFS_4iu1rP1kwSnCarnvRLcvocBu2V6ej-Va6qORBL0l3nBhWGsjCNE3wJWZzfhMIw3iGOQ6opD1n8sXlfoHqwgS1BYJ8DWNEQATkoW4g6B_wf2jZScA7yN6SsUnrcOw4ZRtXQnkYhw8bOww",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Prefer",
+								"value": "outlook.body-content-type=\"text\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/calendar/events?orderby=start/dateTime&$top=100",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"calendar",
+								"events"
+							],
+							"query": [
+								{
+									"key": "orderby",
+									"value": "start/dateTime"
+								},
+								{
+									"key": "$top",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IlRoSDhiTVpxSGpNNmEtaFVxbGgzeUtjUEJRaUx1TjY5MVFlTmdwc3Y2N1kiLCJhbGciOiJSUzI1NiIsIng1dCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSIsImtpZCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lNDNlZDZiNy01MTcxLTQ3OWYtOWFmYS1jNTBkNTE2Y2Y5ZWYvIiwiaWF0IjoxNTkwNTg0NTk4LCJuYmYiOjE1OTA1ODQ1OTgsImV4cCI6MTU5MDU4ODQ5OCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhQQUFBQWw0WHN5bWUxeXNycUVsTDYreS9sejV5a0Q0cGJhQ0d0b2Y5cnNPWUpZR0dxK1dzQVpzQmNLWlBXQU9aeGVmSW9XRXNJTlczY2hCL1ZEdE1WM01lV3B3PT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6InRlc3RBcHAiLCJhcHBpZCI6IjJhMzQyYmVlLWJmZDItNDFkNy05NmU4LTQyODc4OWRlZGM1MiIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiU2FudGFuYSBDYXJyZcOxbyIsImdpdmVuX25hbWUiOiJBbGVqYW5kcm8iLCJpcGFkZHIiOiI4MS40Ny4xMzcuNzEiLCJuYW1lIjoiQWxlamFuZHJvIFNhbnRhbmEgQ2FycmXDsW8iLCJvaWQiOiJiYWI5MTNkNi0xMmYyLTQ1MGUtODM4ZC1jMTI5MmZhZjcwMGYiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzIwMDA5MkM1OTQzNSIsInNjcCI6IkNhbGVuZGFycy5SZWFkIENhbGVuZGFycy5SZWFkLlNoYXJlZCBDYWxlbmRhcnMuUmVhZFdyaXRlIENhbGVuZGFycy5SZWFkV3JpdGUuU2hhcmVkIE1haWwuUmVhZC5TaGFyZWQgTWFpbC5SZWFkV3JpdGUgTWFpbC5SZWFkV3JpdGUuU2hhcmVkIE5vdGVzLkNyZWF0ZSBOb3Rlcy5SZWFkIE5vdGVzLlJlYWQuQWxsIE5vdGVzLlJlYWRXcml0ZSBOb3Rlcy5SZWFkV3JpdGUuQWxsIFRhc2tzLlJlYWQgVGFza3MuUmVhZC5TaGFyZWQgVGFza3MuUmVhZFdyaXRlIFRhc2tzLlJlYWRXcml0ZS5TaGFyZWQgVXNlci5SZWFkIHByb2ZpbGUgb3BlbmlkIGVtYWlsIiwic3ViIjoiNWtKcnJicnphTVF2b212WlphcXNVSG85QlZyT0pyYlV5Ykxmam5ObGowZyIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImU0M2VkNmI3LTUxNzEtNDc5Zi05YWZhLWM1MGQ1MTZjZjllZiIsInVuaXF1ZV9uYW1lIjoiYXNhbnRhbmFAZnVscC5lcyIsInVwbiI6ImFzYW50YW5hQGZ1bHAuZXMiLCJ1dGkiOiJsT1d1NG9yMEtFLUZ3Zk5fR2ZEWkFBIiwidmVyIjoiMS4wIiwieG1zX3N0Ijp7InN1YiI6ImNMZDlJYThFZEo0WXBsWW9aOGRZdFhFTEthVnlFbXFoQk5meU9ad0M0QUUifSwieG1zX3RjZHQiOjEzNTM5NTE2ODd9.HUIvxd30aGvqZtqnpAnB409WI7bm_U2iIPCshqsNy9vo7Iz2030kaN_BKg_3_oWu60iOFAjmq_3waH4HCTbKuvJGQMai14kWANUy1L2qeEDNorhv2IxyFKDD1SLWljWXdvVmnkEp5xP6KNtB5FGT0dKV9inDlRXx9fDT4kqyuHxIVOP_jWUn_6nal6pi_gsDMocx_JC3v6hfAmVTfFTC0xlU7hlqXUre5MQkqvzr9uHvFRfvl-5UvTbb1hJktQlsyqWNHtpeRLQ2bsQqV2A9TBtsMUhajOMMexfGkVuCyitskOqRP6I78OAsviiarqi7AGX2Be-Hd109S4NeuSMS0A",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"subject\": \"Update Event\",\r\n  \"body\": {\r\n    \"contentType\": \"HTML\",\r\n    \"content\": \"Here we have a update body event\"\r\n  },\r\n  \"start\": {\r\n      \"dateTime\": \"2020-03-15T12:00:00\",\r\n      \"timeZone\": \"Pacific Standard Time\"\r\n  },\r\n  \"end\": {\r\n      \"dateTime\": \"2020-03-15T14:00:00\",\r\n      \"timeZone\": \"Pacific Standard Time\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/events/{{EventID}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"events",
+								"{{EventID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IlZUQnNZQjJYWGRULVNhbEdUMVJTUDFkX2k4MVNwOWM3dWdOQnpmdEhhTlUiLCJhbGciOiJSUzI1NiIsIng1dCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSIsImtpZCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lNDNlZDZiNy01MTcxLTQ3OWYtOWFmYS1jNTBkNTE2Y2Y5ZWYvIiwiaWF0IjoxNTkwNTg0MDgyLCJuYmYiOjE1OTA1ODQwODIsImV4cCI6MTU5MDU4Nzk4MiwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhQQUFBQWdQdzl2VHorTnE4ZGZZTW5YR0Y1clJGTWFJbHVucjZpbWR4U29YNkRWWmN0NFZJdXlaUFFQcUtRT3BwQzhnd0NWK1Y4Ni9ZSlZxdWNpSFJraTVJUWR3PT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6InRlc3RBcHAiLCJhcHBpZCI6IjJhMzQyYmVlLWJmZDItNDFkNy05NmU4LTQyODc4OWRlZGM1MiIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiU2FudGFuYSBDYXJyZcOxbyIsImdpdmVuX25hbWUiOiJBbGVqYW5kcm8iLCJpcGFkZHIiOiI4MS40Ny4xMzcuNzEiLCJuYW1lIjoiQWxlamFuZHJvIFNhbnRhbmEgQ2FycmXDsW8iLCJvaWQiOiJiYWI5MTNkNi0xMmYyLTQ1MGUtODM4ZC1jMTI5MmZhZjcwMGYiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzIwMDA5MkM1OTQzNSIsInNjcCI6IkNhbGVuZGFycy5SZWFkIENhbGVuZGFycy5SZWFkLlNoYXJlZCBDYWxlbmRhcnMuUmVhZFdyaXRlIENhbGVuZGFycy5SZWFkV3JpdGUuU2hhcmVkIE1haWwuUmVhZC5TaGFyZWQgTWFpbC5SZWFkV3JpdGUgTWFpbC5SZWFkV3JpdGUuU2hhcmVkIE5vdGVzLkNyZWF0ZSBOb3Rlcy5SZWFkIE5vdGVzLlJlYWQuQWxsIE5vdGVzLlJlYWRXcml0ZSBOb3Rlcy5SZWFkV3JpdGUuQWxsIFRhc2tzLlJlYWQgVGFza3MuUmVhZC5TaGFyZWQgVGFza3MuUmVhZFdyaXRlIFRhc2tzLlJlYWRXcml0ZS5TaGFyZWQgVXNlci5SZWFkIHByb2ZpbGUgb3BlbmlkIGVtYWlsIiwic3ViIjoiNWtKcnJicnphTVF2b212WlphcXNVSG85QlZyT0pyYlV5Ykxmam5ObGowZyIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImU0M2VkNmI3LTUxNzEtNDc5Zi05YWZhLWM1MGQ1MTZjZjllZiIsInVuaXF1ZV9uYW1lIjoiYXNhbnRhbmFAZnVscC5lcyIsInVwbiI6ImFzYW50YW5hQGZ1bHAuZXMiLCJ1dGkiOiJINHlzTzlCbjEwbXpEakd6RnlsaEFRIiwidmVyIjoiMS4wIiwieG1zX3N0Ijp7InN1YiI6ImNMZDlJYThFZEo0WXBsWW9aOGRZdFhFTEthVnlFbXFoQk5meU9ad0M0QUUifSwieG1zX3RjZHQiOjEzNTM5NTE2ODd9.sovJ404C056buHAESWyl3fAOPhKovNrWadmuAwYCGsQW20PfHBpWNPdDCCbQJaY2dd6Pv2qacQYkMyKubKGDvRBYrcqQ41mCIntj63iOK0phvvm9x0YBkoOn6JP7CJNWNZiyWLs8CXNvaZWGCrxT_PlrjxYKwcw4-OGBzkIbmeV2GSEQL5KawugTb_y74CNcyZ6LamdFS_4iu1rP1kwSnCarnvRLcvocBu2V6ej-Va6qORBL0l3nBhWGsjCNE3wJWZzfhMIw3iGOQ6opD1n8sXlfoHqwgS1BYJ8DWNEQATkoW4g6B_wf2jZScA7yN6SsUnrcOw4ZRtXQnkYhw8bOww",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/events/{{EventID}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"events",
+								"{{EventID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "Show inbox mails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{UserAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/users/{{UserName}}/mailFolders/Inbox/Messages",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"users",
+								"{{UserName}}",
+								"mailFolders",
+								"Inbox",
+								"Messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Message with id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{UserAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/messages/{{MessageId}}",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"messages",
+								"{{MessageId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendMail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62b77761-f24f-4b53-a30a-d97e7441dd87",
+								"exec": [
+									"try {\r",
+									"    if (responseBody.indexOf(\"InvalidAuthenticationToken\") !== -1)\r",
+									"    {\r",
+									"        console.log(\"You need to run *On behalf of a User | Get User Access Token* request first.\");\r",
+									"    }\r",
+									"    else\r",
+									"    {\r",
+									"        if (pm.environment.get(\"UserEmail\") === \"\")\r",
+									"        {\r",
+									"            console.log(\"You need manual set a **UserName** environment variable.\");\r",
+									"        }\r",
+									"        else\r",
+									"        {\r",
+									"            if (pm.response.status === \"Forbidden\")\r",
+									"            {\r",
+									"                console.log(\"You need to add user delegated permissions in your application to at least *Mail.Send* in portal.azure.com and then consent as user or Grant admin consent in portal. And re-run *On behalf of a User | Get User Access Token* request to update access token. \");\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"catch (e) {\r",
+									"    console.log(e);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{UserAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "SdkVersion",
+								"value": "postman-graph/v1.0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": {\r\n    \"subject\": \"Meet for lunch?\",\r\n    \"body\": {\r\n      \"contentType\": \"Text\",\r\n      \"content\": \"The new cafeteria is open.\"\r\n    },\r\n    \"toRecipients\": [\r\n      {\r\n        \"emailAddress\": {\r\n          \"address\": \"{{UserName}}\"\r\n        }\r\n      }\r\n    ],\r\n    \"ccRecipients\": [\r\n      {\r\n        \"emailAddress\": {\r\n          \"address\": \"{{UserName}}\"\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  \"saveToSentItems\": \"false\"\r\n}"
+						},
+						"url": {
+							"raw": "https://graph.microsoft.com/v1.0/me/sendMail",
+							"protocol": "https",
+							"host": [
+								"graph",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"v1.0",
+								"me",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "{{Access_Token}}",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					},
+					{
+						"key": "tokenType",
+						"value": "Bearer",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Get Access_token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7f2c210a-d3a8-4638-aea0-11813e3e29a7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "94fe9439-eae3-452d-9b4e-6d08973cfb2f",
+						"exec": [
+							"try {\r",
+							"    if (pm.environment.get(\"ClientID\") === \"\")\r",
+							"    {\r",
+							"        console.log(\"You need to enter *ClientID* environment variable first.\");\r",
+							"    }\r",
+							"    if (pm.environment.get(\"ClientSecret\") === \"\")\r",
+							"    {\r",
+							"        console.log(\"You need to enter *ClientSecret* environment variable first.\");\r",
+							"    }\r",
+							"    if (pm.environment.get(\"TenantID\") === \"\")\r",
+							"    {\r",
+							"        console.log(\"You need to enter *TenantID* environment variable first.\");\r",
+							"    }\r",
+							"    if (pm.environment.get(\"UserName\") === \"\")\r",
+							"    {\r",
+							"        console.log(\"You need to enter *UserName* environment variable first.\");\r",
+							"    }\r",
+							"    if (pm.environment.get(\"UserPassword\") === \"\")\r",
+							"    {\r",
+							"        console.log(\"You need to enter *UserPassword* environment variable first.\");\r",
+							"    }\r",
+							"    else\r",
+							"    {\r",
+							"        var json = JSON.parse(responseBody);\r",
+							"        postman.setEnvironmentVariable(\"UserAccessToken\", json.access_token);\r",
+							"    }\r",
+							"}\r",
+							"catch (e) {\r",
+							"    console.log(e);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IndEYm5hd1pRQno4bXNLNzMtMTFHUkFJYU5saUFhZWVWWEtvQzB4b3c1em8iLCJhbGciOiJSUzI1NiIsIng1dCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSIsImtpZCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lNDNlZDZiNy01MTcxLTQ3OWYtOWFmYS1jNTBkNTE2Y2Y5ZWYvIiwiaWF0IjoxNTkwNjYzNzg4LCJuYmYiOjE1OTA2NjM3ODgsImV4cCI6MTU5MDY2NzY4OCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhQQUFBQWV4VWt1SUYwVHJibXFQWEtHL2RhMmtRa3RxTFFRT2dObDFCSXVrb0wrK2ZTQUZ6NUszMVA5T2tsZkh6YWhoQzdkWE9uQWxOcFZQRVFQUmYzZnp5Zy9BPT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6InRlc3RBcHAiLCJhcHBpZCI6IjJhMzQyYmVlLWJmZDItNDFkNy05NmU4LTQyODc4OWRlZGM1MiIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiU2FudGFuYSBDYXJyZcOxbyIsImdpdmVuX25hbWUiOiJBbGVqYW5kcm8iLCJpcGFkZHIiOiI4My4zOC4xMjMuNCIsIm5hbWUiOiJBbGVqYW5kcm8gU2FudGFuYSBDYXJyZcOxbyIsIm9pZCI6ImJhYjkxM2Q2LTEyZjItNDUwZS04MzhkLWMxMjkyZmFmNzAwZiIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMDkyQzU5NDM1Iiwic2NwIjoiQ2FsZW5kYXJzLlJlYWQgQ2FsZW5kYXJzLlJlYWQuU2hhcmVkIENhbGVuZGFycy5SZWFkV3JpdGUgQ2FsZW5kYXJzLlJlYWRXcml0ZS5TaGFyZWQgTWFpbC5SZWFkLlNoYXJlZCBNYWlsLlJlYWRXcml0ZSBNYWlsLlJlYWRXcml0ZS5TaGFyZWQgTm90ZXMuQ3JlYXRlIE5vdGVzLlJlYWQgTm90ZXMuUmVhZC5BbGwgTm90ZXMuUmVhZFdyaXRlIE5vdGVzLlJlYWRXcml0ZS5BbGwgVGFza3MuUmVhZCBUYXNrcy5SZWFkLlNoYXJlZCBUYXNrcy5SZWFkV3JpdGUgVGFza3MuUmVhZFdyaXRlLlNoYXJlZCBVc2VyLlJlYWQgcHJvZmlsZSBvcGVuaWQgZW1haWwiLCJzdWIiOiI1a0pycmJyemFNUXZvbXZaWmFxc1VIbzlCVnJPSnJiVXliTGZqbk5sajBnIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkVVIiwidGlkIjoiZTQzZWQ2YjctNTE3MS00NzlmLTlhZmEtYzUwZDUxNmNmOWVmIiwidW5pcXVlX25hbWUiOiJhc2FudGFuYUBmdWxwLmVzIiwidXBuIjoiYXNhbnRhbmFAZnVscC5lcyIsInV0aSI6InRVWE9rSEZNVEUyZ3MtamJTM2daQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfc3QiOnsic3ViIjoiY0xkOUlhOEVkSjRZcGxZb1o4ZFl0WEVMS2FWeUVtcWhCTmZ5T1p3QzRBRSJ9LCJ4bXNfdGNkdCI6MTM1Mzk1MTY4N30.PukEOsJa_isdqsBmGn7EcsQevH4FHpt9Tac1Ijen5DG4xxnWyamDG_YT6Jsq0NwgREkLPZomGvgLUWNA_nOYNL-sr7FVnSbL7AKvCYfClt5Xy264u3JmorzRS97LtLHulpB2O6IR6RP0-QDptTmvsHXEJhLk1YAczujR9gLh4AdJmviQ-sZPVrIQ_54g9EakiiuXjiSJnOeuLXB3KQxCSU0MxxR_o_ocm0PRkGkaAJuELjy5OUnrMMFxpjRvINLvfUouQ8lX0Ot994UjSeOtT_FGQtymkznvaPCn8wfHRuHOX8Oul5iG299-qp2FMXRSWZUVGQUxjiIYlPkqn_KI6w",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "client_id",
+							"value": "{{ClientID}}",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "{{",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{u",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{ClientSecret}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/{{ClientID}}/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"{{ClientID}}",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6Iks1RklpZXhxMEQ4cG1FSDJ6dkY4cVIyQVVLMlZmaTdLQ1FIWlo1UG90MEEiLCJhbGciOiJSUzI1NiIsIng1dCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSIsImtpZCI6IkN0VHVoTUptRDVNN0RMZHpEMnYyeDNRS1NSWSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lNDNlZDZiNy01MTcxLTQ3OWYtOWFmYS1jNTBkNTE2Y2Y5ZWYvIiwiaWF0IjoxNTkwNTc3NDIzLCJuYmYiOjE1OTA1Nzc0MjMsImV4cCI6MTU5MDU4MTMyMywiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFVUUF1LzhQQUFBQWQ3S1dHRlNhVUtlRkpLcEE1MXAzcWplWmNVMm1RNVFsTURQN2s5ZlFYemUzT3Zqc0I3dFZJK0EzSEtBcmVCQm00b3B0My9iUHExbmQ4eE5PYU81YU1BPT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6InRlc3RBcHAiLCJhcHBpZCI6IjJhMzQyYmVlLWJmZDItNDFkNy05NmU4LTQyODc4OWRlZGM1MiIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiU2FudGFuYSBDYXJyZcOxbyIsImdpdmVuX25hbWUiOiJBbGVqYW5kcm8iLCJpcGFkZHIiOiI4MS40Ny4xMzcuNzEiLCJuYW1lIjoiQWxlamFuZHJvIFNhbnRhbmEgQ2FycmXDsW8iLCJvaWQiOiJiYWI5MTNkNi0xMmYyLTQ1MGUtODM4ZC1jMTI5MmZhZjcwMGYiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzIwMDA5MkM1OTQzNSIsInNjcCI6IkNhbGVuZGFycy5SZWFkIENhbGVuZGFycy5SZWFkLlNoYXJlZCBDYWxlbmRhcnMuUmVhZFdyaXRlIENhbGVuZGFycy5SZWFkV3JpdGUuU2hhcmVkIE1haWwuUmVhZC5TaGFyZWQgTWFpbC5SZWFkV3JpdGUgTWFpbC5SZWFkV3JpdGUuU2hhcmVkIE5vdGVzLkNyZWF0ZSBOb3Rlcy5SZWFkIE5vdGVzLlJlYWQuQWxsIE5vdGVzLlJlYWRXcml0ZSBOb3Rlcy5SZWFkV3JpdGUuQWxsIFRhc2tzLlJlYWQgVGFza3MuUmVhZC5TaGFyZWQgVGFza3MuUmVhZFdyaXRlIFRhc2tzLlJlYWRXcml0ZS5TaGFyZWQgVXNlci5SZWFkIHByb2ZpbGUgb3BlbmlkIGVtYWlsIiwic3ViIjoiNWtKcnJicnphTVF2b212WlphcXNVSG85QlZyT0pyYlV5Ykxmam5ObGowZyIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImU0M2VkNmI3LTUxNzEtNDc5Zi05YWZhLWM1MGQ1MTZjZjllZiIsInVuaXF1ZV9uYW1lIjoiYXNhbnRhbmFAZnVscC5lcyIsInVwbiI6ImFzYW50YW5hQGZ1bHAuZXMiLCJ1dGkiOiJ3aW1IbDRPOG9VLXlEVEhDd00zUUFBIiwidmVyIjoiMS4wIiwieG1zX3N0Ijp7InN1YiI6ImNMZDlJYThFZEo0WXBsWW9aOGRZdFhFTEthVnlFbXFoQk5meU9ad0M0QUUifSwieG1zX3RjZHQiOjEzNTM5NTE2ODd9.MPqbJoIne4f_IDK0Uq4jk8AyV1ukJHg5x9IVxUWo0wh39lXWoytHDn5p-is4KaUfqjG8h-qMnebTVvfXQXaUUBwoF88CVHu5AuKF2fLyg1Iz_HDY4NpnR95ItPTHXiIkTVEwpqdiTesIPDPMDFeLEi62-FquIGrIM55oa5CiUZ5zQdwoINQVDOSSAUjUSn5rxJ_0v-XL44Y5uj8WAdoTU_h7rlCIj1hvtLLu5FIAfvlA6C8ZyZmToFyqS94K6jp_ymXLR7Ma-ED-6B62xgdZxwYnybg4qz5r2m_FcQrTZFlq-f22p1cRJp7TzED8Xcy_4KfvuHYPEGe6-lGYRWe5wA",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "queryParams",
+				"type": "string"
+			}
+		]
+	}
+}

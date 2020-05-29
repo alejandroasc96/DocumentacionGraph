@@ -15,9 +15,9 @@ En caso de necesitar profundizar en alguno de los temas de los que se hablan a c
 - Tener php instalado.
 
 ## <h2 style="text-align:center">Índice</h2>
-1. [Registrando la aplicación en Microsoft Azure](#id1)
-2. [Llamadas a la API desde Postman](#id2)
-3. [Flujo de código en la aplicación](#id2)
+1. [Registrando la aplicación en Microsoft Azure](https://github.com/alejandroasc96/DocumentacionGraph/blob/master/calendarApiSample/resgistroAplicacionAzure.md)
+2. [Llamadas a la API desde Postman](https://github.com/alejandroasc96/DocumentacionGraph/tree/master/PostmanCalls)
+3. [Flujo de código en la aplicación](https://github.com/alejandroasc96/DocumentacionGraph/tree/master/calendarApiSample)
 
 
 
