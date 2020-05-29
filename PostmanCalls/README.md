@@ -19,7 +19,9 @@ Para poder utilizar dichas pruebas vamos a tener que modificar ciertos valores.
 
 **4.** Pegue las siguientes dos URL y haga clic en Importar después de cada una.
 
-PONER LOS ENLACES!!!
+`https://github.com/alejandroasc96/DocumentacionGraph/blob/master/PostmanCalls/MicrosoftGraph.postman_collection.json`
+
+`https://github.com/alejandroasc96/DocumentacionGraph/blob/master/PostmanCalls/Microsoft%20Graph%20environment%20.postman_environment.json`
 
 Ahora debería ver la colección de **MicrosoftGraph enviroment** en el panel de Colecciones del lado izquierdo.
 
