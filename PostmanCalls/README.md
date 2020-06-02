@@ -36,7 +36,7 @@ Ahora debería ver la colección de **MicrosoftGraph enviroment** en el panel de
 
 **8.** Ingrese a las variables de entorno (no iniciales ) su Aplicación de identidad de Microsoft: **ClientID** , **ClientSecret** ad **TenantID** .
 
-![Image of Postman](https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/6_configurandoEntorno.png?raw=true)
+![Image of Postman](https://github.com/alejandroasc96/DocumentacionGraph/blob/master/MicrosoftGraph/PostmanViews/6_configurandoEntorno.PNG?raw=true)
 
 # Obtener Access_Token 
 
